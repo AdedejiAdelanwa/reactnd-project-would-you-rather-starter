@@ -10,9 +10,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={SignIn} />
-        <Route exact path="/home" component={Home} />
         <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
+
         <Route exact path="/leaderboard" component={Leaderboard} />
         <Route exact path="/new-poll" component={NewPoll} />
         <Route
