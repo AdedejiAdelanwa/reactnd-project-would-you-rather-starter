@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { authUser } from "../actions/authedUser";
 import { fetchUsers } from "../actions/users";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const SignWrapper = styled.div`
   width: 100%;
@@ -47,12 +47,17 @@ const SignInCard = styled.div`
 
 function SignIn() {
   const [id, setId] = useState("");
+  const authedUser = useSelector((state) => state.authedUser.authedUser);
   const dispatch = useDispatch();
+  const history = useHistory();
   const users = useSelector((state) => state.users.users);
   const usersId = Object.keys(users);
 
   function handleAuthUser() {
     dispatch(authUser(users[id]));
+    if (authedUser) {
+      history.replace("/");
+    }
   }
 
   useEffect(() => {
@@ -73,7 +78,6 @@ function SignIn() {
           ))}
         </select>
         <button onClick={handleAuthUser}>Sign In</button>
-        <Link to="/home">Home</Link>
       </SignInCard>
     </SignWrapper>
   );
