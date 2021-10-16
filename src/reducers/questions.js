@@ -15,7 +15,6 @@ export default function questions(state = initialState, action) {
       return { ...state, loading: false };
     case actions.SAVE_QUESTIONS_ANSWER:
       const question = state.questions[action.qid];
-      console.log("from question reducer");
       return {
         ...state,
         questions: {
@@ -29,6 +28,15 @@ export default function questions(state = initialState, action) {
           },
         },
       };
+    case actions.SAVE_QUESTION:
+      return {
+        ...state,
+        questions: {
+          ...state.questions,
+          [action.question.id]: action.question,
+        },
+      };
+
     default:
       return state;
   }
