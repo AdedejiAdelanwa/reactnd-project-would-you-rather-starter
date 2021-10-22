@@ -1,9 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Redirect, Route } from "react-router";
+import { Route, useHistory, useLocation, withRouter } from "react-router";
 
 function ProtectedRoute({ component: Component, ...restofProps }) {
   const authedUser = useSelector((state) => state.authedUser.authedUser);
+  const history = useHistory();
+  const location = useLocation();
 
   return (
     <Route
@@ -12,10 +14,10 @@ function ProtectedRoute({ component: Component, ...restofProps }) {
         authedUser !== null ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/signin" />
+          history.replace(`/signin?next=${location.pathname}`)
         )
       }
     />
   );
 }
-export default ProtectedRoute;
+export default withRouter(ProtectedRoute);
